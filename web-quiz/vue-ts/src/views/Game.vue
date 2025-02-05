@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1 v-if="loading">Loading Quiz...</h1>
-    <div v-else></div>
+    <div v-else>
+      <span>{{ gameStore.questionNumber }}</span>
+      <quiz-question />
+    </div>
   </div>
 </template>
 
@@ -10,6 +13,8 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useGameStore } from '@/store/game';
+
+import QuizQuestion from '@/components/QuizQuestion.vue';
 
 const router = useRouter();
 const gameStore = useGameStore();

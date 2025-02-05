@@ -1,15 +1,19 @@
 import type { Question } from '@/types/game';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 export const useGameStore = defineStore('game', () => {
   const questions = ref<Question[]>([]);
-  const correctAnswers = ref(0);
+  const score = ref(0);
   const questionNumber = ref(1);
+
+  const currentQuestion = computed(() => {
+    return questions.value[questionNumber.value];
+  });
 
   const $reset = () => {
     questions.value = [];
-    correctAnswers.value = 0;
+    score.value = 0;
     questionNumber.value = 1;
   };
 
@@ -17,11 +21,17 @@ export const useGameStore = defineStore('game', () => {
     questions.value = val;
   };
 
+  const nextQuestion = () => {
+    questionNumber.value++;
+  };
+
   return {
     questions,
-    correctAnswers,
+    score,
     questionNumber,
+    currentQuestion,
     $reset,
-    setQuestions
+    setQuestions,
+    nextQuestion
   };
 });
