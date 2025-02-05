@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import './App.css';
 
 function App() {
@@ -11,6 +12,8 @@ function App() {
           15 seconds. 2 life lines will be provided one 50/50 and one +10 s. Each lifeline can only
           be used once during a game."
         </p>
+
+        <Link to="/game">Start</Link>
       </main>
     </>
   );
