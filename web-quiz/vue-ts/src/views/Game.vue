@@ -1,7 +1,7 @@
 <template>
   <div class="game">
     <h1 v-if="loading">Loading Quiz...</h1>
-    <game-over v-else-if="gameStore.gameOver" />
+    <game-over v-else-if="gameStore.gameOver" @reset-game="resetGame" />
     <div v-else>
       <div class="game-info">
         <div class="left">
@@ -87,20 +87,21 @@ const fetchQuizData = async () => {
   }
 };
 
+const resetGame = () => {
+  loading.value = true;
+  timeLifeLineUsed.value = false;
+  fiftyFiftyLifeLineUsed.value = false;
+  gameStore.$reset();
+  fetchQuizData();
+};
+
 watch(
   () => gameStore.questionNumber,
   () => (timer.value = 15)
 );
 
-gameStore.$onAction((action) => {
-  if (action.name === '$reset') {
-    loading.value = true;
-    fetchQuizData();
-  }
-}, true);
-
 onMounted(() => {
-  fetchQuizData();
+  resetGame();
 });
 </script>
 

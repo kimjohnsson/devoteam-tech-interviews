@@ -1,7 +1,7 @@
 <template>
   <h1>Game Over</h1>
   <h3>Score: {{ gameStore.score }}</h3>
-  <button @click="gameStore.$reset()">Try Again</button>
+  <button @click="resetGame">Try Again</button>
   <routerLink to="/">Home</routerLink>
 </template>
 
@@ -9,6 +9,12 @@
 import { useGameStore } from '@/store/game';
 
 const gameStore = useGameStore();
+
+const emit = defineEmits(['resetGame']);
+
+const resetGame = () => {
+  emit('resetGame');
+};
 </script>
 
 <style scoped>
