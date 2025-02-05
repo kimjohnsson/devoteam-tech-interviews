@@ -1,6 +1,7 @@
 <template>
   <div class="game">
     <h1 v-if="loading">Loading Quiz...</h1>
+    <game-over v-else-if="gameStore.gameOver" />
     <div v-else>
       <div class="game-info">
         <div class="left">
@@ -22,6 +23,7 @@ import { useRouter } from 'vue-router';
 import { useGameStore } from '@/store/game';
 
 import QuizQuestion from '@/components/QuizQuestion.vue';
+import GameOver from '@/views/GameOver.vue';
 
 const router = useRouter();
 const gameStore = useGameStore();
@@ -43,6 +45,13 @@ const fetchQuizData = async () => {
     router.push({ name: 'error' });
   }
 };
+
+gameStore.$onAction((action) => {
+  if (action.name === '$reset') {
+    loading.value = true;
+    fetchQuizData();
+  }
+});
 
 onMounted(() => {
   fetchQuizData();
