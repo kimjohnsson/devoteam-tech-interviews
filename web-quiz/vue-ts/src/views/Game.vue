@@ -1,8 +1,15 @@
 <template>
-  <div>
+  <div class="game">
     <h1 v-if="loading">Loading Quiz...</h1>
     <div v-else>
-      <span>{{ gameStore.questionNumber }}</span>
+      <div class="game-info">
+        <div class="left">
+          <h3>{{ gameStore.questionNumber }} / 10</h3>
+        </div>
+        <div class="right">
+          <h3>Score: {{ gameStore.score }}</h3>
+        </div>
+      </div>
       <quiz-question />
     </div>
   </div>
@@ -41,3 +48,15 @@ onMounted(() => {
   fetchQuizData();
 });
 </script>
+
+<style scoped>
+.game {
+  width: 900px;
+  margin: auto;
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

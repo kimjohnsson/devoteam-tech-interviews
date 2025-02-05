@@ -21,8 +21,11 @@ export const useGameStore = defineStore('game', () => {
     questions.value = val;
   };
 
-  const nextQuestion = () => {
+  const nextQuestion = (correct_answer: boolean) => {
+    if (correct_answer) score.value++;
     questionNumber.value++;
+
+    console.log(questionNumber);
   };
 
   return {
