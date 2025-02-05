@@ -8,7 +8,7 @@
       once during a game."
     </p>
 
-    <button>Start Game</button>
+    <RouterLink to="game">Start Game</RouterLink>
   </div>
 </template>
 
