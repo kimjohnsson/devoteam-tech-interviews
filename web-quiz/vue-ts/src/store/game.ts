@@ -1,6 +1,8 @@
-import type { Question } from '@/types/game';
-import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
+import { defineStore } from 'pinia';
+
+import { getRandomNumber } from '@/helpers/getRandomNumber';
+import type { Question } from '@/types/game';
 
 export const useGameStore = defineStore('game', () => {
   const score = ref(0);
@@ -33,6 +35,12 @@ export const useGameStore = defineStore('game', () => {
     questionNumber.value++;
   };
 
+  const remove2incorrectAnswers = () => {
+    for (let i = 0; i < 2; i++) {
+      questions.value[questionNumber.value - 1].incorrect_answers.splice(getRandomNumber(2 - i), 1);
+    }
+  };
+
   return {
     questions,
     score,
@@ -41,6 +49,7 @@ export const useGameStore = defineStore('game', () => {
     gameOver,
     $reset,
     setQuestions,
-    nextQuestion
+    nextQuestion,
+    remove2incorrectAnswers
   };
 });

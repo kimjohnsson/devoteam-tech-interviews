@@ -50,9 +50,9 @@ button:hover, a:hover {
   color: #fff;
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible, a:focus, a:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button.disabled, button.disabled:hover {
+  color: gray;
+  border-color: transparent;
 }
 
 .card {

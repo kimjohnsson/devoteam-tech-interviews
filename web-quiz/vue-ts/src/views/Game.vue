@@ -8,7 +8,16 @@
           <h3>{{ gameStore.questionNumber }} / 10</h3>
         </div>
         <div class="right">
-          <h3>Score: {{ gameStore.score }}</h3>
+          <div>
+            <h3>Score: {{ gameStore.score }}</h3>
+            <h3>Time: {{ timer }}</h3>
+          </div>
+          <div>
+            <button :class="{ disabled: timeLifeLineUsed }" @click="timeLifeline()">+10 S</button>
+            <button :class="{ disabled: fiftyFiftyLifeLineUsed }" @click="fiftyFiftyLifeLine()">
+              50/50
+            </button>
+          </div>
         </div>
       </div>
       <quiz-question />
@@ -17,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useGameStore } from '@/store/game';
@@ -29,6 +38,37 @@ const router = useRouter();
 const gameStore = useGameStore();
 
 const loading = ref(true);
+const timer = ref(15);
+
+const timeLifeLineUsed = ref(false);
+const fiftyFiftyLifeLineUsed = ref(false);
+
+const startCountDown = () => {
+  setInterval(() => {
+    if (timer.value) {
+      timer.value--;
+    } else {
+      gameStore.nextQuestion(false);
+      timer.value = 15;
+    }
+  }, 1000);
+};
+
+const timeLifeline = () => {
+  if (timeLifeLineUsed.value) {
+    return;
+  }
+  timer.value += 10;
+  timeLifeLineUsed.value = true;
+};
+
+const fiftyFiftyLifeLine = () => {
+  if (fiftyFiftyLifeLineUsed.value) {
+    return;
+  }
+  gameStore.remove2incorrectAnswers();
+  fiftyFiftyLifeLineUsed.value = true;
+};
 
 const fetchQuizData = async () => {
   try {
@@ -39,19 +79,25 @@ const fetchQuizData = async () => {
       throw new Error('Too Many Requests');
     }
 
-    loading.value = false;
     gameStore.setQuestions(json.results);
+    loading.value = false;
+    startCountDown();
   } catch {
     router.push({ name: 'error' });
   }
 };
+
+watch(
+  () => gameStore.questionNumber,
+  () => (timer.value = 15)
+);
 
 gameStore.$onAction((action) => {
   if (action.name === '$reset') {
     loading.value = true;
     fetchQuizData();
   }
-});
+}, true);
 
 onMounted(() => {
   fetchQuizData();
@@ -67,5 +113,19 @@ onMounted(() => {
 .game-info {
   display: flex;
   justify-content: space-between;
+
+  .right {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      margin-bottom: 10px;
+    }
+
+    div > * {
+      display: inline;
+      margin-left: 15px;
+    }
+  }
 }
 </style>

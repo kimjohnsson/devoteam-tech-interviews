@@ -12,20 +12,18 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import { getRandomNumber } from '@/helpers/getRandomNumber';
+
 import { useGameStore } from '@/store/game';
 
 const gameStore = useGameStore();
-
-const getRandomInt = (max: number) => {
-  return Math.floor(Math.random() * max);
-};
 
 const answers = computed(() => {
   let currentAnswers = gameStore.currentQuestion.incorrect_answers.map((ans) => ({
     answer: ans,
     correct: false
   }));
-  currentAnswers.splice(getRandomInt(3), 0, {
+  currentAnswers.splice(getRandomNumber(3), 0, {
     answer: gameStore.currentQuestion.correct_answer,
     correct: true
   });
