@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import './index.css';
 import App from '@/App.tsx';
-import Game from '@/views/Game.tsx';
+import Game from '@/views/game/Game';
 import Error from '@/views/Error.tsx';
 
 createRoot(document.getElementById('root')!).render(
