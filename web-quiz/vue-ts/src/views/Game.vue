@@ -39,12 +39,16 @@ const gameStore = useGameStore();
 
 const loading = ref(true);
 const timer = ref(15);
+let timerInterval: number;
 
 const timeLifeLineUsed = ref(false);
 const fiftyFiftyLifeLineUsed = ref(false);
 
 const startCountDown = () => {
-  setInterval(() => {
+  timer.value = 15;
+  clearInterval(timerInterval);
+
+  timerInterval = setInterval(() => {
     if (timer.value) {
       timer.value--;
     } else {
@@ -97,7 +101,13 @@ const resetGame = () => {
 
 watch(
   () => gameStore.questionNumber,
-  () => (timer.value = 15)
+  () => {
+    if (gameStore.gameOver) {
+      clearInterval(timerInterval);
+    } else {
+      startCountDown();
+    }
+  }
 );
 
 onMounted(() => {
