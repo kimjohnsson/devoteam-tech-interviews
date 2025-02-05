@@ -1,5 +1,7 @@
 <template>
-  <div>
-    <h1>Vue Web Quiz</h1>
-  </div>
+  <Start />
 </template>
+
+<script setup lang="ts">
+import Start from '@/views/Start.vue';
+</script>
