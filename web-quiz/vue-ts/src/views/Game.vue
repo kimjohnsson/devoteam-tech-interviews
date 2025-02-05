@@ -9,10 +9,12 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { useGameStore } from '@/store/game';
+
 const router = useRouter();
+const gameStore = useGameStore();
 
 const loading = ref(true);
-const quiz = ref([]);
 
 const fetchQuizData = async () => {
   try {
@@ -24,7 +26,7 @@ const fetchQuizData = async () => {
     }
 
     loading.value = false;
-    quiz.value = json.results;
+    gameStore.setQuestions(json.results);
   } catch {
     router.push({ name: 'error' });
   }
