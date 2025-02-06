@@ -1,21 +1,15 @@
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import './Game.css';
 
-const GameContext = createContext([]);
+import QuizQuestions from '@/components/QuizQuestion';
+import { useGame } from './GameProvider';
 
 function Game() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [questions, setQuestions] = useState([]);
-  const [questionNumber, setQuestionNumber] = useState(1);
+  const { questionNumber, score, setQuestions } = useGame();
 
-  const currentQuestion = useMemo(() => {
-    if (questionNumber > 10) {
-      return questions[10];
-    }
-    return questions[questionNumber - 1];
-  }, [questionNumber, questions]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,32 +31,31 @@ function Game() {
     };
 
     fetchData();
-  }, [navigate]);
+  }, [navigate, setQuestions]);
 
   return (
     <>
-      <GameContext.Provider value={currentQuestion}>
-        <div className="game">
-          {loading ? (
-            <h1>Loading Quiz...</h1>
-          ) : (
-            <div>
-              <div className="game-info">
-                <div className="left">
-                  <h3> {questionNumber} / 10</h3>
+      <div className="game">
+        {loading ? (
+          <h1>Loading Quiz...</h1>
+        ) : (
+          <div>
+            <div className="game-info">
+              <div className="left">
+                <h3> {questionNumber} / 10</h3>
+              </div>
+              <div className="right">
+                <div>
+                  <h3>Score: {score}</h3>
+                  <h3>Time: </h3>
                 </div>
-                <div className="right">
-                  <div>
-                    <h3>Score: </h3>
-                    <h3>Time: </h3>
-                  </div>
-                  <div></div>
-                </div>
+                <div></div>
               </div>
             </div>
-          )}
-        </div>
-      </GameContext.Provider>
+            <QuizQuestions />
+          </div>
+        )}
+      </div>
     </>
   );
 }
