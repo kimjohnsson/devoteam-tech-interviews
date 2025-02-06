@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <>
       <main>
@@ -17,6 +17,6 @@ function App() {
       </main>
     </>
   );
-}
+};
 
 export default App;

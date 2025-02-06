@@ -6,7 +6,7 @@ import QuizQuestions from '@/components/quizQuestions.tsx/QuizQuestion';
 import { useGame } from '@/hooks/useGame';
 import GameOver from './GameOver';
 
-function Game() {
+const Game = () => {
   const navigate = useNavigate();
   const { questionNumber, score, gameOver, setQuestions, reset } = useGame();
 
@@ -67,6 +67,6 @@ function Game() {
       </div>
     </>
   );
-}
+};
 
 export default Game;

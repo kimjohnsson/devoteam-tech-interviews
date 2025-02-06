@@ -3,7 +3,7 @@ import { useGame } from '@/hooks/useGame';
 import { getRandomNumber } from '@/helpers/getRandomNumber';
 import './QuizQuestions.css';
 
-function QuizQuestions() {
+const QuizQuestions = () => {
   const { currentQuestion, nextQuestion } = useGame();
 
   const answers = useMemo(() => {
@@ -34,6 +34,6 @@ function QuizQuestions() {
       </div>
     </>
   );
-}
+};
 
 export default QuizQuestions;
