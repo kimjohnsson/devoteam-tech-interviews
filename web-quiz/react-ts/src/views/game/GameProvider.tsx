@@ -14,9 +14,19 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     return questions[questionNumber - 1];
   }, [questionNumber, questions]);
 
+  const gameOver = useMemo(() => {
+    return questionNumber > 10 ? true : false;
+  }, [questionNumber]);
+
   const nextQuestion = (correct_answer: boolean) => {
     if (correct_answer) setScore(score + 1);
     setQuestionNumber(questionNumber + 1);
+  };
+
+  const reset = () => {
+    setScore(0);
+    setQuestions([]);
+    setQuestionNumber(1);
   };
 
   return (
@@ -26,10 +36,12 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
         questions,
         currentQuestion,
         questionNumber,
+        gameOver,
         setScore,
         setQuestions,
         setQuestionNumber,
-        nextQuestion
+        nextQuestion,
+        reset
       }}
     >
       {children}
