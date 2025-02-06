@@ -14,6 +14,11 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     return questions[questionNumber - 1];
   }, [questionNumber, questions]);
 
+  const nextQuestion = (correct_answer: boolean) => {
+    if (correct_answer) setScore(score + 1);
+    setQuestionNumber(questionNumber + 1);
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -23,7 +28,8 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
         questionNumber,
         setScore,
         setQuestions,
-        setQuestionNumber
+        setQuestionNumber,
+        nextQuestion
       }}
     >
       {children}

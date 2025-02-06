@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import './Game.css';
 
-import QuizQuestions from '@/components/QuizQuestion';
+import QuizQuestions from '@/components/quizQuestions.tsx/QuizQuestion';
 import { useGame } from '@/hooks/useGame';
 
 function Game() {

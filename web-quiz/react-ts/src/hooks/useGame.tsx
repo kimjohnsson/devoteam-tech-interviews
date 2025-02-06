@@ -9,6 +9,7 @@ type GameContextType = {
   setScore: (num: number) => void;
   setQuestions: (questions: Question[]) => void;
   setQuestionNumber: (num: number) => void;
+  nextQuestion: (correct_answer: boolean) => void;
 } | null;
 
 export const GameContext = createContext<GameContextType>(null);
