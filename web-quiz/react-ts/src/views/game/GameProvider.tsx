@@ -1,17 +1,6 @@
+import { GameContext } from '@/hooks/useGame';
 import { Question } from '@/types/game';
-import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
-
-type GameContextType = {
-  score: number;
-  questions: Question[];
-  currentQuestion: Question | null;
-  questionNumber: number;
-  setScore: (num: number) => void;
-  setQuestions: (questions: Question[]) => void;
-  setQuestionNumber: (num: number) => void;
-} | null;
-
-const GameContext = createContext<GameContextType>(null);
+import { ReactNode, useMemo, useState } from 'react';
 
 const GameProvider = ({ children }: { children: ReactNode }) => {
   const [score, setScore] = useState(0);
@@ -42,12 +31,4 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const useGame = () => {
-  const context = useContext(GameContext);
-  if (!context) {
-    throw new Error('useGame must be used within a GameProvider');
-  }
-  return context;
-};
-
-export { GameProvider, useGame };
+export { GameProvider };

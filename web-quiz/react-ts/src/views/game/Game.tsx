@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import './Game.css';
 
 import QuizQuestions from '@/components/QuizQuestion';
-import { useGame } from './GameProvider';
+import { useGame } from '@/hooks/useGame';
 
 function Game() {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { useGame } from '@/views/game/GameProvider';
+import { useGame } from '@/hooks/useGame';
 
 function QuizQuestions() {
   const { currentQuestion } = useGame();
