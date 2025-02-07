@@ -8,9 +8,10 @@ import GameOver from './GameOver';
 
 const Game = () => {
   const navigate = useNavigate();
-  const { questionNumber, score, gameOver, setQuestions, reset } = useGame();
+  const { questionNumber, score, gameOver, setQuestions, reset, nextQuestion } = useGame();
 
   const [loading, setLoading] = useState(true);
+  const [timer, setTimer] = useState(15);
 
   const fetchData = useCallback(async () => {
     try {
@@ -25,6 +26,7 @@ const Game = () => {
 
       setQuestions(json.results);
       setLoading(false);
+      setTimer(15);
     } catch {
       navigate('/error');
     }
@@ -34,10 +36,28 @@ const Game = () => {
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    setTimer(15);
+
+    const timerInterval = setInterval(() => {
+      setTimer((prevTimer) => {
+        if (prevTimer === 0) {
+          clearInterval(timerInterval);
+          nextQuestion(false);
+          return 15;
+        }
+
+        return prevTimer - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timerInterval);
+  }, [nextQuestion]);
+
   const resetGame = () => {
     reset();
-    fetchData();
     setLoading(true);
+    fetchData();
   };
 
   return (
@@ -56,7 +76,7 @@ const Game = () => {
               <div className="right">
                 <div>
                   <h3>Score: {score}</h3>
-                  <h3>Time: </h3>
+                  <h3>Time: {timer}</h3>
                 </div>
                 <div></div>
               </div>
