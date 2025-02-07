@@ -12,6 +12,7 @@ const Game = () => {
 
   const [loading, setLoading] = useState(true);
   const [timer, setTimer] = useState(15);
+  const [timeLifeLineUsed, setTimeLifeLineUsed] = useState(false);
 
   const fetchData = useCallback(async () => {
     try {
@@ -57,7 +58,16 @@ const Game = () => {
   const resetGame = () => {
     reset();
     setLoading(true);
+    setTimeLifeLineUsed(false);
     fetchData();
+  };
+
+  const timeLifeline = () => {
+    if (timeLifeLineUsed) {
+      return;
+    }
+    setTimer((prevTime) => prevTime + 10);
+    setTimeLifeLineUsed(true);
   };
 
   return (
@@ -78,7 +88,14 @@ const Game = () => {
                   <h3>Score: {score}</h3>
                   <h3>Time: {timer}</h3>
                 </div>
-                <div></div>
+                <div>
+                  <button
+                    className={timeLifeLineUsed ? 'disabled' : ''}
+                    onClick={() => timeLifeline()}
+                  >
+                    +10 S
+                  </button>
+                </div>
               </div>
             </div>
             <QuizQuestions />
