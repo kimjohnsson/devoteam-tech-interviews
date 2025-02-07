@@ -8,11 +8,20 @@ import GameOver from './GameOver';
 
 const Game = () => {
   const navigate = useNavigate();
-  const { questionNumber, score, gameOver, setQuestions, reset, nextQuestion } = useGame();
+  const {
+    questionNumber,
+    score,
+    gameOver,
+    setQuestions,
+    reset,
+    nextQuestion,
+    remove2incorrectAnswers
+  } = useGame();
 
   const [loading, setLoading] = useState(true);
   const [timer, setTimer] = useState(15);
   const [timeLifeLineUsed, setTimeLifeLineUsed] = useState(false);
+  const [fiftyFiftyLifeLineUsed, setFiftyFiftyLifeLineUsed] = useState(false);
 
   const fetchData = useCallback(async () => {
     try {
@@ -59,6 +68,7 @@ const Game = () => {
     reset();
     setLoading(true);
     setTimeLifeLineUsed(false);
+    setFiftyFiftyLifeLineUsed(false);
     fetchData();
   };
 
@@ -68,6 +78,14 @@ const Game = () => {
     }
     setTimer((prevTime) => prevTime + 10);
     setTimeLifeLineUsed(true);
+  };
+
+  const fiftyFiftyLifeLine = () => {
+    if (fiftyFiftyLifeLineUsed) {
+      return;
+    }
+    remove2incorrectAnswers();
+    setFiftyFiftyLifeLineUsed(true);
   };
 
   return (
@@ -94,6 +112,12 @@ const Game = () => {
                     onClick={() => timeLifeline()}
                   >
                     +10 S
+                  </button>
+                  <button
+                    className={fiftyFiftyLifeLineUsed ? 'disabled' : ''}
+                    onClick={() => fiftyFiftyLifeLine()}
+                  >
+                    50/50
                   </button>
                 </div>
               </div>

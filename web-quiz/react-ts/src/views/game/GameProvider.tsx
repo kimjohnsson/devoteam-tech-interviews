@@ -1,6 +1,7 @@
-import { GameContext } from '@/hooks/useGame';
-import { Question } from '@/types/game';
 import { ReactNode, useMemo, useState } from 'react';
+
+import { Question } from '@/types/game';
+import { GameContext } from '@/hooks/useGame';
 
 const GameProvider = ({ children }: { children: ReactNode }) => {
   const [score, setScore] = useState(0);
@@ -25,6 +26,21 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
     setQuestionNumber((prev) => prev + 1);
   };
 
+  const remove2incorrectAnswers = () => {
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((question, index) => {
+        if (index + 1 === questionNumber) {
+          return {
+            ...question,
+            incorrect_answers: [question.incorrect_answers[0]]
+          };
+        }
+
+        return question;
+      })
+    );
+  };
+
   const reset = () => {
     setScore(0);
     setQuestions([]);
@@ -43,6 +59,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
         setQuestions,
         setQuestionNumber,
         nextQuestion,
+        remove2incorrectAnswers,
         reset
       }}
     >

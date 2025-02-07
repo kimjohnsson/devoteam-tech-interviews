@@ -11,6 +11,7 @@ type GameContextType = {
   setQuestions: (questions: Question[]) => void;
   setQuestionNumber: (num: number) => void;
   nextQuestion: (correct_answer: boolean) => void;
+  remove2incorrectAnswers: () => void;
   reset: () => void;
 } | null;
 
