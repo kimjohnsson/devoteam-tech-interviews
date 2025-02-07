@@ -7,7 +7,7 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [questionNumber, setQuestionNumber] = useState(1);
 
-  const currentQuestion = useMemo<Question>(() => {
+  const currentQuestion = useMemo(() => {
     if (questionNumber > 10) {
       return questions[10];
     }
@@ -19,8 +19,10 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   }, [questionNumber]);
 
   const nextQuestion = (correct_answer: boolean) => {
-    if (correct_answer) setScore(score + 1);
-    setQuestionNumber(questionNumber + 1);
+    if (correct_answer) {
+      setScore((prevScore) => prevScore + 1);
+    }
+    setQuestionNumber((prev) => prev + 1);
   };
 
   const reset = () => {
