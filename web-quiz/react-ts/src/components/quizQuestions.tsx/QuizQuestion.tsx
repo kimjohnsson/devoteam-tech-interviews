@@ -3,8 +3,12 @@ import { useGame } from '@/hooks/useGame';
 import { getRandomNumber } from '@/helpers/getRandomNumber';
 import './QuizQuestions.css';
 
-const QuizQuestions = () => {
-  const { currentQuestion, nextQuestion } = useGame();
+const QuizQuestions = ({
+  handleNextQuestion
+}: {
+  handleNextQuestion: (correct_answer: boolean) => void;
+}) => {
+  const { currentQuestion } = useGame();
 
   const answers = useMemo(() => {
     if (!currentQuestion) return [];
@@ -27,7 +31,7 @@ const QuizQuestions = () => {
         {answers.map((answer, index) => (
           <button
             key={index}
-            onClick={() => nextQuestion(answer.correct)}
+            onClick={() => handleNextQuestion(answer.correct)}
             dangerouslySetInnerHTML={{ __html: answer.answer }}
           ></button>
         ))}

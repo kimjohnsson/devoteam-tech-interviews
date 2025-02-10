@@ -47,12 +47,11 @@ const Game = () => {
   }, [fetchData]);
 
   useEffect(() => {
-    setTimer(15);
+    if (gameOver) return;
 
     const timerInterval = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer === 0) {
-          clearInterval(timerInterval);
           nextQuestion(false);
           return 15;
         }
@@ -62,7 +61,12 @@ const Game = () => {
     }, 1000);
 
     return () => clearInterval(timerInterval);
-  }, [nextQuestion]);
+  }, [questionNumber, nextQuestion, gameOver]);
+
+  const handleNextQuestion = (correct_answer: boolean) => {
+    setTimer(15);
+    nextQuestion(correct_answer);
+  };
 
   const resetGame = () => {
     reset();
@@ -122,7 +126,7 @@ const Game = () => {
                 </div>
               </div>
             </div>
-            <QuizQuestions />
+            <QuizQuestions handleNextQuestion={handleNextQuestion} />
           </div>
         )}
       </div>
