@@ -1,4 +1,4 @@
-import { ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 import { Question } from '@/types/game';
 import { GameContext } from '@/hooks/useGame';
@@ -8,16 +8,9 @@ const GameProvider = ({ children }: { children: ReactNode }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [questionNumber, setQuestionNumber] = useState(1);
 
-  const currentQuestion = useMemo(() => {
-    if (questionNumber > 10) {
-      return questions[10];
-    }
-    return questions[questionNumber - 1];
-  }, [questionNumber, questions]);
+  const currentQuestion = questionNumber > 10 ? questions[10] : questions[questionNumber - 1];
 
-  const gameOver = useMemo(() => {
-    return questionNumber > 10 ? true : false;
-  }, [questionNumber]);
+  const gameOver = questionNumber > 10 ? true : false;
 
   const nextQuestion = (correct_answer: boolean) => {
     if (correct_answer) {
