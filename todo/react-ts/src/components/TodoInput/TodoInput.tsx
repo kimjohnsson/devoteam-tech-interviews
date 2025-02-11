@@ -1,12 +1,13 @@
 import { KeyboardEvent, useState } from 'react';
+import { Todo } from '@/App';
 import './TodoInput.css';
 
-const TodoInput = ({ addTodo }: { addTodo: (item: string) => void }) => {
+const TodoInput = ({ addTodo }: { addTodo: (item: Todo) => void }) => {
   const [input, setInput] = useState('');
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      addTodo(input);
+      addTodo({ item: input, done: false });
     }
   };
 
@@ -18,7 +19,7 @@ const TodoInput = ({ addTodo }: { addTodo: (item: string) => void }) => {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => handleKeyDown(e)}
         ></input>
-        <button onClick={() => addTodo(input)}>Add</button>
+        <button onClick={() => addTodo({ item: input, done: false })}>Add</button>
       </div>
     </>
   );

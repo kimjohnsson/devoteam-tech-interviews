@@ -3,10 +3,15 @@ import './App.css';
 
 import TodoInput from '@/components/TodoInput/TodoInput';
 
-function App() {
-  const [todos, setTodos] = useState<string[]>([]);
+export type Todo = {
+  item: string;
+  done: boolean;
+};
 
-  const addTodo = (item: string) => {
+function App() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const addTodo = (item: Todo) => {
     setTodos((todos) => [...todos, item]);
   };
 
