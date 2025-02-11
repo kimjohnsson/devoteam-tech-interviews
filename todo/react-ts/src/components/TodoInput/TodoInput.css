@@ -1,0 +1,9 @@
+.todo-input {
+  display: flex;
+
+  input {
+    margin-right: 20px;
+    padding: 10px;
+    width: 400px;
+  }
+}
