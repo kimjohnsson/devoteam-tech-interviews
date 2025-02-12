@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 
 import TodoInput from '@/components/TodoInput/TodoInput';
+import TodoItem from './components/TodoItem/TodoItem';
 
 export type Todo = {
   item: string;
@@ -19,6 +20,16 @@ function App() {
     <>
       <h1>Todo</h1>
       <TodoInput addTodo={addTodo} />
+      {todos
+        .filter((todo) => !todo.done)
+        .map((todo, index) => (
+          <TodoItem key={index} todo={todo} />
+        ))}
+      {todos
+        .filter((todo) => todo.done)
+        .map((todo, index) => (
+          <TodoItem key={index} todo={todo} />
+        ))}
     </>
   );
 }
