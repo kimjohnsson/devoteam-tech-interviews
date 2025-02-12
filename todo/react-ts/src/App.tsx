@@ -17,6 +17,18 @@ function App() {
     setTodos((todos) => [...todos, item]);
   };
 
+  const toggleItem = (id: string, checked: boolean) => {
+    setTodos((todos) =>
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, done: checked };
+        }
+
+        return todo;
+      })
+    );
+  };
+
   return (
     <>
       <h1>Todo</h1>
@@ -24,12 +36,12 @@ function App() {
       {todos
         .filter((todo) => !todo.done)
         .map((todo, index) => (
-          <TodoItem key={index} todo={todo} />
+          <TodoItem key={index} todo={todo} toggleItem={toggleItem} />
         ))}
       {todos
         .filter((todo) => todo.done)
         .map((todo, index) => (
-          <TodoItem key={index} todo={todo} />
+          <TodoItem key={index} todo={todo} toggleItem={toggleItem} />
         ))}
     </>
   );
