@@ -7,6 +7,7 @@ import TodoItem from './components/TodoItem/TodoItem';
 export type Todo = {
   item: string;
   done: boolean;
+  id: string;
 };
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
   return (
     <>
       <h1>Todo</h1>
-      <TodoInput addTodo={addTodo} />
+      <TodoInput todos={todos} addTodo={addTodo} />
       {todos
         .filter((todo) => !todo.done)
         .map((todo, index) => (
