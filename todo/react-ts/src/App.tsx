@@ -39,6 +39,10 @@ function App() {
     setTodos((todos) => todos.map((todo) => ({ ...todo, done: checked })));
   };
 
+  const removeItem = (id: string) => {
+    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+  };
+
   return (
     <>
       <h1>Todo</h1>
@@ -47,12 +51,12 @@ function App() {
       {todos
         .filter((todo) => !todo.done)
         .map((todo, index) => (
-          <TodoItem key={index} todo={todo} toggleItem={toggleItem} />
+          <TodoItem key={index} todo={todo} toggleItem={toggleItem} removeItem={removeItem} />
         ))}
       {todos
         .filter((todo) => todo.done)
         .map((todo, index) => (
-          <TodoItem key={index} todo={todo} toggleItem={toggleItem} />
+          <TodoItem key={index} todo={todo} toggleItem={toggleItem} removeItem={removeItem} />
         ))}
     </>
   );

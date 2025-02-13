@@ -1,6 +1,6 @@
 .todo-item {
-  display: grid;
-  grid-template-columns: 5fr 1fr;
+  display: flex;
+  justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.30);
   padding: 15px;
   margin: 15px 0;
@@ -14,5 +14,19 @@
   .done {
     text-decoration: line-through;
     color: gray;
+  }
+
+  .todo-actions {
+    input {
+      margin-right: 10px;
+    }
+
+    span {
+      cursor: pointer;
+
+      &:hover {
+        color: gray;
+      }
+    }
   }
 }
