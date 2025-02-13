@@ -1,0 +1,11 @@
+.menu-items {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+}

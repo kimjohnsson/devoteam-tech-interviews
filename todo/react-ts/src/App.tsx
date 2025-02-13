@@ -3,6 +3,7 @@ import './App.css';
 
 import TodoInput from '@/components/TodoInput/TodoInput';
 import TodoItem from './components/TodoItem/TodoItem';
+import MenuItems from './components/MenuItems/MenuItems';
 
 export type Todo = {
   item: string;
@@ -29,9 +30,16 @@ function App() {
     );
   };
 
+  const clearTodos = () => setTodos([]);
+
+  const toggleAllTodos = (checked: boolean) => {
+    setTodos((todos) => todos.map((todo) => ({ ...todo, done: checked })));
+  };
+
   return (
     <>
       <h1>Todo</h1>
+      <MenuItems clearTodos={clearTodos} toggleAllTodos={toggleAllTodos}></MenuItems>
       <TodoInput todos={todos} addTodo={addTodo} />
       {todos
         .filter((todo) => !todo.done)
