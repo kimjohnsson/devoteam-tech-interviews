@@ -15,6 +15,9 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const addTodo = (item: Todo) => {
+    if (!item.item) {
+      return;
+    }
     setTodos((todos) => [...todos, item]);
   };
 
