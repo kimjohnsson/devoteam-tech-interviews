@@ -35,6 +35,8 @@ function App() {
 
   const clearTodos = () => setTodos([]);
 
+  const clearDoneTodos = () => setTodos((todos) => todos.filter((todo) => !todo.done));
+
   const toggleAllTodos = (checked: boolean) => {
     setTodos((todos) => todos.map((todo) => ({ ...todo, done: checked })));
   };
@@ -46,7 +48,11 @@ function App() {
   return (
     <>
       <h1>Todo</h1>
-      <MenuItems clearTodos={clearTodos} toggleAllTodos={toggleAllTodos}></MenuItems>
+      <MenuItems
+        clearTodos={clearTodos}
+        clearDoneTodos={clearDoneTodos}
+        toggleAllTodos={toggleAllTodos}
+      ></MenuItems>
       <TodoInput todos={todos} addTodo={addTodo} />
       {todos
         .filter((todo) => !todo.done)

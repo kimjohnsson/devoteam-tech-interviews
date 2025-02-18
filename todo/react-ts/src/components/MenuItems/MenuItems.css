@@ -6,6 +6,9 @@
   .toggle {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+  }
+
+  button {
+    margin-left: 20px;
   }
 }

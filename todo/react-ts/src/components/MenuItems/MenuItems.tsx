@@ -3,9 +3,11 @@ import './MenuItems.css';
 
 const MenuItems = ({
   clearTodos,
+  clearDoneTodos,
   toggleAllTodos
 }: {
   clearTodos: () => void;
+  clearDoneTodos: () => void;
   toggleAllTodos: (checked: boolean) => void;
 }) => {
   const [checked, setChecked] = useState(false);
@@ -26,6 +28,7 @@ const MenuItems = ({
           <input id="toggle" type="checkbox" checked={checked} onChange={handleToggle} />
         </div>
         <button onClick={clearTodos}>Clear list</button>
+        <button onClick={clearDoneTodos}>Clear done items</button>
       </div>
     </>
   );
