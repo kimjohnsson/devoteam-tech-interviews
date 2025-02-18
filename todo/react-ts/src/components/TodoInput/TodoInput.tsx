@@ -7,9 +7,13 @@ const TodoInput = ({ todos, addTodo }: { todos: Todo[]; addTodo: (item: Todo) =>
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      addTodo({ item: input, done: false, id: `${todos.length}-${input}` });
-      setInput('');
+      addNewTodo();
     }
+  };
+
+  const addNewTodo = () => {
+    addTodo({ item: input, done: false, id: `${todos.length}-${input}` });
+    setInput('');
   };
 
   return (
@@ -21,11 +25,7 @@ const TodoInput = ({ todos, addTodo }: { todos: Todo[]; addTodo: (item: Todo) =>
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => handleKeyDown(e)}
         ></input>
-        <button
-          onClick={() => addTodo({ item: input, done: false, id: `${todos.length}-${input}` })}
-        >
-          Add
-        </button>
+        <button onClick={() => addNewTodo()}>Add</button>
       </div>
     </>
   );
